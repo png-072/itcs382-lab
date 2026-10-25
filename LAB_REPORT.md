@@ -8,7 +8,7 @@ Repository URL: https://github.com/png-072/itcs382-lab
 | --- | --- |
 | JDK | Eclipse Temurin 17.0.20.1 |
 | Maven | Apache Maven 3.10.0 |
-| IDE | Visual Studio Code 1.137.0 |
+| IDE | Antigravity IDE 2.5.5 |
 | SonarQube for IDE | 6.2.0 |
 | AI tool and exact model | OpenAI Codex, GPT-5 |
 
@@ -130,33 +130,45 @@ P1,PICKED_UP
 
 | Item | bikeshare-poor | bikeshare-good |
 | --- | --- | --- |
-| Date | | |
-| AI tool and exact model | | |
-| Prompt (B or C as given, or your changed prompt in full) | | |
-| Builds with mvn package (yes or no) | | |
-| Number of classes, interfaces, enums and records | | |
-| SonarQube issues, total | | |
-| SonarQube issues, by rule | | |
-| AI review findings in Check 1 | | |
-| AI review findings in Check 2 | | |
-| Review output file in the reviews folder | | |
+| Date | 2026-10-25 | 2026-10-25 |
+| AI tool and exact model | OpenAI Codex, GPT-5 | OpenAI Codex, GPT-5 |
+| Prompt (B or C as given, or your changed prompt in full) | Prompt B as given | Prompt C as given |
+| Builds with mvn package (yes or no) | Yes | Yes |
+| Number of classes, interfaces, enums and records | 1 | 8 |
+| SonarQube issues, total | 9 | 6 |
+| SonarQube issues, by rule | java:S2386 = 3; java:S1172 = 1; java:S106 = 5 | java:S1172 = 1; java:S106 = 5 |
+| AI review findings in Check 1 | 5 | 4 |
+| AI review findings in Check 2 | 6 | 1 |
+| Review output file in the reviews folder | `reviews/bikeshare-poor-review.md` | `reviews/bikeshare-good-review.md` |
 
 4.1 Did SonarQube report any cohesion or coupling problem in bikeshare-poor? Quote the rule and the message if it did.
 
+No. SonarQube reported field visibility, an unused parameter and console-output issues, but it did not report the poor design's cohesion or coupling problems.
+
 4.2 Did the AI review tell the two versions apart? Give one finding for bikeshare-poor that does not appear for bikeshare-good.
 
+Yes. The AI reported that the three public static mutable maps in `bikeshare-poor` create common coupling and allow uncontrolled modification; that finding does not appear for `bikeshare-good`.
+
 4.3 Which version would you rather extend with a new member type, such as a visitor who pays 4 baht per minute, and why?
+
+I would extend `bikeshare-good`. Its `MemberType` enum owns the rate, so adding `VISITOR(4)` keeps the new rule in one place without changing the rental service or using another integer convention.
 
 ## Task 5. Reflection
 
 5.1 What does SonarQube check, and what does it not check? Answer with examples from this lab.
 
+SonarQube checks rule-based code issues such as the String comparison with `==`, the unclosed `FileWriter`, unused fields and public mutable fields. It did not explain the weak class cohesion, control coupling or shared integer conventions in the poor BikeShare design, which the AI review identified.
+
 5.2 When should you not trust the AI review? Give an example from this lab.
 
+I should not trust an AI finding until I inspect the stated line and test the behavior. For example, the AI treated the Scanner as an important leak, but it exists for the lifetime of this short CLI process, so that finding was technically possible but overstated in this context.
+
 5.3 What will you do differently in Project Phase 2 after this lab?
+
+I will run both static analysis and an AI design review, then verify every finding against the code and program output. I will also separate responsibilities earlier, hide mutable state, build after each small change and keep focused Git commits.
 
 ## AI usage declaration
 
 | AI tool and exact model | Purpose | Files or parts that it produced or changed | How you checked its output |
 | --- | --- | --- | --- |
-| | | | |
+| OpenAI Codex, GPT-5 | Review the starter, fix verified issues, generate and review both BikeShare designs, and complete the report | `parcelpoint` Java files, both `bikeshare` projects, files in `reviews`, and `LAB_REPORT.md` | Inspected every change, built all Maven projects, ran the required commands, checked CSV output, compared findings with SonarQube, and kept separate Git commits |

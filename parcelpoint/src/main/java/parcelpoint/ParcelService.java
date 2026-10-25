@@ -8,8 +8,6 @@ import java.util.List;
 public class ParcelService {
     private List<Locker> lockers = new ArrayList<>();
     private List<Parcel> parcels = new ArrayList<>();
-    private int maxParcels = 100;
-
     public ParcelService() {
         lockers.add(new Locker(1, 1));
         lockers.add(new Locker(2, 2));

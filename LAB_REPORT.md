@@ -90,21 +90,40 @@ Table 3. What you did with each SonarQube issue in Table 1
 
 | No. in Table 1 | Fixed or kept | Commit, or the reason for keeping it |
 | --- | --- | --- |
-| 1 | | |
+| 1 | Kept | Console output is the required interface of this command-line program. |
+| 2 | Kept | Console output is the required interface of this command-line program. |
+| 3 | Kept | Console output is the required interface of this command-line program. |
+| 4 | Kept | Console output is the required interface of this command-line program. |
+| 5 | Fixed | 081b775 |
+| 6 | Fixed | b38bcaf |
+| 7 | Kept | The SMS is simulated by required command-line output. |
+| 8 | Fixed | c178e8d |
+| 9 | Kept | Console output is the required interface of this command-line program. |
+| 10 | Kept | Console output is the required interface of this command-line program. |
+| 11 | Fixed | 47d9739 |
+| 12 | Fixed | 1087298 |
 
-Number of SonarQube issues that remain after your fixes:
+Number of SonarQube issues that remain after your fixes: 7
 
 The two design problems that you fixed
 
 | Design problem (course term) | What you changed | Commit |
 | --- | --- | --- |
-| | | |
-| | | |
+| Content coupling / exposed representation | Made `Parcel.status` private and added operations for valid status changes. | a140b3d |
+| Strong coupling / exposed internal collection | Replaced `getLockers()` with the focused `getFreeLockerCount()` query. | 2397036 |
 
 Output of the program after your fixes, for the commands `store P1 6501 2`, `pickup P1 5` and `staff`, and the content of parcels.csv:
 
 ```text
+Commands: store <code> <studentId> <size 1-3>, pickup <code> <days>, list, staff, quit
+SMS to 6501: parcel P1 is in locker 2
+Locker 2
+Fee: 30.0
+P1 6501 PICKED_UP
+Free lockers: 3
 
+parcels.csv:
+P1,PICKED_UP
 ```
 
 ## Task 4. AI-generated poor and good designs
